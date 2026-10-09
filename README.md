@@ -129,10 +129,8 @@ Validation failure (`422 Unprocessable Entity`):
 {
     "error": "Invalid input",
     "details": {
-        "subject": ["The subject field is required."],
-        "recipient_emails.0": [
-            "The recipient_emails.0 field must be a valid email address."
-        ]
+        "subject": "The subject field is required.",
+        "recipient_emails.0": "The recipient_emails.0 field must be a valid email address."
     }
 }
 ```
@@ -230,8 +228,8 @@ npm run build-storybook    # static build → frontend/storybook-static
   they are processed in FIFO order. Multiple workers do not guarantee ordering.
 - **Recipients input.** Recipients are entered one email per line in a textarea (the brief's first
   suggested option).
-- **Validation error shape.** The API returns validation messages as arrays under `details`
-  (Laravel's default), e.g. `"subject": ["The subject field is required."]`.
+- **Validation error shape.** The API returns the first validation message per field as a string
+  under `details`, e.g. `"subject": "The subject field is required."`.
 - **Pagination.** `GET /api/campaigns` is paginated (15/page) and returns a
   `{ data, links, meta }` envelope.
 - **Frontend conventions.** Angular 19 standalone components, Reactive Forms, and Signals for

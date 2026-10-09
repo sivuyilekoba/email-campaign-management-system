@@ -35,9 +35,13 @@ class StoreCampaignRequest extends FormRequest
 
     protected function failedValidation(Validator $validator): void
     {
+        $details = collect($validator->errors()->messages())
+            ->map(fn (array $messages): string => $messages[0])
+            ->all();
+
         throw new HttpResponseException(response()->json([
             'error' => 'Invalid input',
-            'details' => $validator->errors()->messages(),
+            'details' => $details,
         ], 422));
     }
 }
