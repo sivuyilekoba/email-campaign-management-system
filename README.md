@@ -228,9 +228,13 @@ npm run build-storybook    # static build → frontend/storybook-static
   contacting a real mail provider, as permitted by the brief.
 - **One queue job per recipient.** This gives better failure isolation than a single job that
   loops over recipients, and lets Laravel's retry/backoff apply per recipient.
-- **Campaign "done" semantics.** A campaign becomes `done` when no `pending` email jobs remain,
-  even if some jobs `failed`. The brief only defines `queued | processing | done`, so there is no
-  distinct "failed" campaign status.
+- **Job failure handling.** Each job is retried automatically (`tries = 3`, backoff `5s`, then
+  `15s`). If it still fails, Laravel calls the job's `failed()` hook, which marks the email job
+  `failed`, logs the error with the exception, and recomputes the campaign status: the campaign
+  stays `processing` while any `pending` jobs remain, then becomes `done` once none remain. The
+  failed recipients remain visible as `failed` in the campaign details. Because the brief only
+  defines `queued | processing | done`, a campaign can therefore be `done` even if some of its
+  jobs `failed`.
 - **FIFO ordering.** Jobs are dispatched in recipient order; with a single `queue:work` process
   they are processed in FIFO order. Multiple workers do not guarantee ordering.
 - **Recipients input.** Recipients are entered one email per line in a textarea (the brief's first
