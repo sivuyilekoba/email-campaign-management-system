@@ -1,0 +1,73 @@
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
+  <h1 class="fs-3 fw-bold mb-0">Campaign Details</h1>
+  <a class="btn btn-outline-secondary btn-sm" routerLink="/campaigns">Back to campaigns</a>
+</div>
+
+@if (loading()) {
+  <app-loading-spinner />
+} @else if (error()) {
+  <div class="alert alert-danger" role="alert">{{ error() }}</div>
+} @else {
+  @if (campaign(); as campaign) {
+  <div class="row g-3">
+    <div class="col-12 col-lg-4">
+      <div class="card h-100">
+        <div class="card-header">Summary</div>
+        <div class="card-body">
+          <dl class="mb-0">
+            <dt class="text-muted">Name</dt>
+            <dd class="mb-2">{{ campaign.name }}</dd>
+
+            <dt class="text-muted">Subject</dt>
+            <dd class="mb-2">{{ campaign.subject }}</dd>
+
+            <dt class="text-muted">Status</dt>
+            <dd class="mb-2">
+              <app-status-badge [status]="campaign.status" />
+            </dd>
+
+            <dt class="text-muted">Recipients</dt>
+            <dd class="mb-2">{{ campaign.recipient_count }}</dd>
+
+            <dt class="text-muted">Created</dt>
+            <dd class="mb-0">{{ campaign.created_at | date: 'medium' }}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-8">
+      <div class="card mb-3">
+        <div class="card-header">Email body</div>
+        <div class="card-body">
+          <p class="email-body mb-0">{{ campaign.body }}</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">Recipients ({{ campaign.email_jobs.length }})</div>
+        <div class="table-responsive">
+          <table class="table mb-0">
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (job of campaign.email_jobs; track job.id) {
+                <tr>
+                  <td>{{ job.recipient_email }}</td>
+                  <td>
+                    <app-status-badge [status]="job.status" />
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+}
