@@ -37,6 +37,13 @@ and view campaign and per-recipient statuses.
 
 ## Setup
 
+Clone the repository and navigate into it:
+
+```bash
+git clone https://github.com/sivuyilekoba/email-campaign-management-system.git
+cd email-campaign-management-system
+```
+
 ### 1. Backend
 
 ```bash
