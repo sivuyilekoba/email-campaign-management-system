@@ -1,0 +1,39 @@
+<section class="email-preview" aria-label="Email preview">
+  <div class="email-preview__toolbar">
+    <span class="email-preview__dot email-preview__dot--red"></span>
+    <span class="email-preview__dot email-preview__dot--yellow"></span>
+    <span class="email-preview__dot email-preview__dot--green"></span>
+    <span class="email-preview__toolbar-title">Live preview</span>
+  </div>
+
+  <div class="email-preview__message">
+    <div class="email-preview__sender">
+      <div class="email-preview__avatar" aria-hidden="true">E</div>
+      <div>
+        <div class="email-preview__sender-name">Email Campaigns</div>
+        <div class="email-preview__sender-email">&lt;no-reply&#64;example.com&gt;</div>
+      </div>
+    </div>
+
+    <h3 class="email-preview__subject">
+      {{ subject() || 'Your subject line will appear here' }}
+    </h3>
+
+    <div class="email-preview__to">To: you&#64;example.com</div>
+
+    <div class="email-preview__divider"></div>
+
+    <div class="email-preview__body">
+      @if (body()) {
+        {{ body() }}
+      } @else {
+        <p class="email-preview__placeholder">Your email body will appear here as you type.</p>
+      }
+    </div>
+  </div>
+
+  <div class="email-preview__footer">
+    <span>Email Campaigns · 123 Market Street, City, 10115</span>
+    <span class="email-preview__unsubscribe">Unsubscribe from our emails</span>
+  </div>
+</section>

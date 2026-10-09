@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
+import { EmailPreviewComponent } from '../../components/email-preview/email-preview.component';
 import { CampaignSubmission } from '../../models/campaign-submission.model';
 import { CreateCampaignPayload } from '../../models/create-campaign.model';
 import { CampaignService } from '../../services/campaign.service';
@@ -11,7 +12,7 @@ import { recipientEmailsValidator } from '../../validators/recipient-emails.vali
 @Component({
   selector: 'app-campaign-create',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, EmailPreviewComponent],
   templateUrl: './campaign-create.component.html',
 })
 export class CampaignCreateComponent {
