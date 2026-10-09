@@ -1,0 +1,29 @@
+.status-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-badge--queued,
+.status-badge--pending {
+  background-color: #e2e3e5;
+  color: #41464b;
+}
+
+.status-badge--processing {
+  background-color: #cfe2ff;
+  color: #084298;
+}
+
+.status-badge--done,
+.status-badge--sent {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.status-badge--failed {
+  background-color: #f8d7da;
+  color: #842029;
+}
