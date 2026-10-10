@@ -23,5 +23,12 @@ export const routes: Routes = [
         (m) => m.CampaignDetailComponent,
       ),
   },
+  {
+    path: 'templates',
+    loadComponent: () =>
+      import('./features/template-builder/pages/template-builder/template-builder.component').then(
+        (m) => m.TemplateBuilderComponent,
+      ),
+  },
   { path: '**', redirectTo: 'campaigns' },
 ];

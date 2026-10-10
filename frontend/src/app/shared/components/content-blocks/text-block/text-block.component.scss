@@ -1,0 +1,11 @@
+.text-block {
+  margin: 0 0 1rem;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.text-block--placeholder {
+  color: var(--muted);
+  font-style: italic;
+}

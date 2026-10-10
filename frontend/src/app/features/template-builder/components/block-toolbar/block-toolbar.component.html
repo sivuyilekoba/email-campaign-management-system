@@ -1,0 +1,9 @@
+<div class="block-toolbar">
+  <span class="block-toolbar__label">Add block</span>
+
+  @for (type of blockTypes; track type) {
+    <button type="button" class="btn btn-outline-secondary btn-sm" (click)="onAdd(type)">
+      {{ type | titlecase }}
+    </button>
+  }
+</div>

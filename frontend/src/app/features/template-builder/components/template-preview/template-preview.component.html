@@ -1,0 +1,20 @@
+<section class="template-preview" aria-label="Template preview">
+  <div class="template-preview__toolbar">
+    <span class="template-preview__dot template-preview__dot--red"></span>
+    <span class="template-preview__dot template-preview__dot--yellow"></span>
+    <span class="template-preview__dot template-preview__dot--green"></span>
+    <span class="template-preview__title">Live preview</span>
+  </div>
+
+  <div class="template-preview__message">
+    @if (blocks().length > 0) {
+      @for (block of blocks(); track block.id) {
+        <app-block-renderer [block]="block" />
+      }
+    } @else {
+      <p class="template-preview__placeholder">
+        Your blocks will appear here as you compose the template.
+      </p>
+    }
+  </div>
+</section>

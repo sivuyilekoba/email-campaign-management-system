@@ -1,0 +1,47 @@
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
+  <h1 class="fs-3 fw-bold mb-0">Email Template Builder</h1>
+  <a class="btn btn-outline-secondary btn-sm" routerLink="/campaigns">Back to campaigns</a>
+</div>
+
+<div class="row g-4 align-items-start">
+  <div class="col-12 col-lg-7">
+    <div class="card">
+      <div class="card-body">
+        <app-block-toolbar (add)="onAddBlock($event)" />
+
+        @if (builder.blocks().length > 0) {
+          @for (block of builder.blocks(); track block.id; let first = $first, last = $last) {
+            <app-block-canvas-item
+              [block]="block"
+              [selected]="builder.selectedBlockId() === block.id"
+              [canMoveUp]="!first"
+              [canMoveDown]="!last"
+              (select)="builder.selectBlock(block.id)"
+              (moveUp)="builder.moveBlock(block.id, 'up')"
+              (moveDown)="builder.moveBlock(block.id, 'down')"
+              (remove)="builder.removeBlock(block.id)"
+            />
+          }
+        } @else {
+          <p class="text-muted mb-0">
+            No blocks yet. Add a block above to start composing your template.
+          </p>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-lg-5">
+    <div class="card">
+      <div class="card-header">Edit block</div>
+      <div class="card-body">
+        <app-block-editor [block]="builder.selectedBlock()" />
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <h2 class="fs-6 fw-semibold text-muted mb-2">Live preview</h2>
+    <app-template-preview [blocks]="builder.blocks()" />
+  </div>
+</div>

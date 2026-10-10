@@ -24,6 +24,7 @@ and view campaign and per-recipient statuses.
 - Simulated email sending (no external mail provider is required).
 - Campaign status flows `queued → processing → done`; each email job is `pending → sent | failed`.
 - Angular UI: campaign creation form with a live email preview, campaign list, and campaign details.
+- Email template builder (Header/Text/Image/Button blocks) with sidebar editing and a live preview.
 - PHPUnit (backend) and Karma/Jasmine (frontend) test suites; Storybook for shared components.
 
 ---
@@ -207,7 +208,7 @@ Returns a single campaign with its email jobs and per-recipient statuses.
 # Backend — PHPUnit (12 tests)
 php artisan test
 
-# Frontend — Karma/Jasmine (16 tests, headless)
+# Frontend — Karma/Jasmine (33 tests, headless)
 cd frontend
 npm test -- --watch=false --browsers=ChromeHeadless
 ```
@@ -251,17 +252,20 @@ npm run build-storybook    # static build → frontend/storybook-static
   (`autodocs`/`addon-docs`) are disabled because `compodoc@0.0.41` is incompatible with Node 22;
   the maintained `@compodoc/compodoc` is installed so Storybook builds, and component stories are
   provided for the shared components.
-- **Email template builder.** The "email template builder" described in Section 2 of the brief
-  (compose templates from Header/Text/Image/Button blocks) was intentionally **not** implemented —
-  see below.
+- **Email template builder.** The Section 2 builder is implemented as a standalone feature at
+  `/templates`. Users add Header/Text/Image/Button blocks, edit each block's content in a sidebar
+  form, and see changes reflected in a live preview in real time. The block components form a
+  small design system under `frontend/src/app/shared/components/content-blocks/` — reusable,
+  documented with Storybook, and decoupled from the builder's application logic (they take data as
+  inputs and have no dependency on services, HTTP, or routing). Template composition is front-end
+  only for now; saving/reusing templates is not yet implemented (see below).
 
 ## Not implemented / incomplete
 
 - **No real email delivery** — sending is simulated only, as specified.
 - **No authentication on the campaign API** — not required by the brief.
-- **Email template builder (Section 2)** — scoped out. It conflicts with Tasks 7–10 and the API
-  stores the body as a plain-text string. A simpler live email preview (subject + body) is
-  included in the create form instead.
+- **Template persistence** — templates can be composed and previewed in the builder, but they
+  cannot yet be saved, listed, or reused. There are no backend endpoints for storing templates.
 - **Storybook auto-generated docs pages** — disabled (compodoc/Node 22 issue noted above).
 
 ## Secrets

@@ -1,0 +1,34 @@
+<div class="canvas-item" [class.canvas-item--selected]="selected()" (click)="onSelect()">
+  <div class="canvas-item__content">
+    <app-block-renderer [block]="block()" />
+  </div>
+
+  <div class="canvas-item__actions">
+    <button
+      type="button"
+      class="btn btn-outline-secondary btn-sm"
+      [disabled]="!canMoveUp()"
+      aria-label="Move block up"
+      (click)="onMoveUp($event)"
+    >
+      ↑
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-secondary btn-sm"
+      [disabled]="!canMoveDown()"
+      aria-label="Move block down"
+      (click)="onMoveDown($event)"
+    >
+      ↓
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-secondary btn-sm"
+      aria-label="Remove block"
+      (click)="onRemove($event)"
+    >
+      Remove
+    </button>
+  </div>
+</div>

@@ -1,0 +1,93 @@
+@if (block(); as selected) {
+  <h2 class="block-editor__title">{{ selected.type | titlecase }} block</h2>
+
+  @switch (selected.type) {
+    @case ('header') {
+      @if (headerBlock(); as header) {
+        <div class="mb-3">
+          <label class="form-label" for="header-text">Heading</label>
+          <input
+            id="header-text"
+            type="text"
+            class="form-control"
+            [value]="header.text"
+            placeholder="e.g. Spring Sale is here!"
+            (input)="updateHeaderText($event)"
+          />
+        </div>
+      }
+    }
+
+    @case ('text') {
+      @if (textBlock(); as text) {
+        <div class="mb-3">
+          <label class="form-label" for="text-content">Text</label>
+          <textarea
+            id="text-content"
+            rows="5"
+            class="form-control"
+            [value]="text.text"
+            placeholder="Write your paragraph…"
+            (input)="updateBodyText($event)"
+          ></textarea>
+        </div>
+      }
+    }
+
+    @case ('image') {
+      @if (imageBlock(); as image) {
+        <div class="mb-3">
+          <label class="form-label" for="image-url">Image URL</label>
+          <input
+            id="image-url"
+            type="text"
+            class="form-control"
+            [value]="image.url"
+            placeholder="https://…"
+            (input)="updateImageUrl($event)"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="image-alt">Alt text</label>
+          <input
+            id="image-alt"
+            type="text"
+            class="form-control"
+            [value]="image.alt"
+            placeholder="Describe the image"
+            (input)="updateImageAlt($event)"
+          />
+        </div>
+      }
+    }
+
+    @case ('button') {
+      @if (buttonBlock(); as button) {
+        <div class="mb-3">
+          <label class="form-label" for="button-label">Button label</label>
+          <input
+            id="button-label"
+            type="text"
+            class="form-control"
+            [value]="button.label"
+            placeholder="e.g. Shop now"
+            (input)="updateButtonLabel($event)"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="button-url">Button URL</label>
+          <input
+            id="button-url"
+            type="text"
+            class="form-control"
+            [value]="button.url"
+            placeholder="https://…"
+            (input)="updateButtonUrl($event)"
+          />
+        </div>
+      }
+    }
+  }
+} @else {
+  <p class="text-muted mb-0">Select a block to edit its content.</p>
+}

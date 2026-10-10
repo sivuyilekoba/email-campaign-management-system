@@ -1,0 +1,7 @@
+@if (block().label) {
+  <a class="button-block" [href]="block().url || '#'" target="_blank" rel="noopener">{{
+    block().label
+  }}</a>
+} @else {
+  <span class="button-block button-block--placeholder">Button</span>
+}
