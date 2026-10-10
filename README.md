@@ -211,7 +211,12 @@ Request:
     "name": "Welcome template",
     "blocks": [
         { "id": "b1", "type": "header", "text": "Welcome!" },
-        { "id": "b2", "type": "button", "label": "Get started", "url": "https://example.com" }
+        {
+            "id": "b2",
+            "type": "button",
+            "label": "Get started",
+            "url": "https://example.com"
+        }
     ]
 }
 ```
@@ -224,7 +229,12 @@ Response (`201 Created`):
     "name": "Welcome template",
     "blocks": [
         { "id": "b1", "type": "header", "text": "Welcome!" },
-        { "id": "b2", "type": "button", "label": "Get started", "url": "https://example.com" }
+        {
+            "id": "b2",
+            "type": "button",
+            "label": "Get started",
+            "url": "https://example.com"
+        }
     ],
     "created_at": "...",
     "updated_at": "..."
@@ -311,7 +321,7 @@ npm run build-storybook    # static build → frontend/storybook-static
 ## Not implemented / incomplete
 
 - **No real email delivery** — sending is simulated only, as specified.
-- **nnot yet be saved, listed, or reused. There are no backend endpoints for storing templates.
+- **No authentication on the campaign API** — not required by the brief.
 - **Storybook auto-generated docs pages** — disabled (compodoc/Node 22 issue noted above).
 
 ## Secrets
