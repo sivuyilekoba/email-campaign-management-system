@@ -3,11 +3,11 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
+import { PaginatedResponse } from '../../../shared/models/paginated-response.model';
 import { CampaignDetail } from '../models/campaign-detail.model';
 import { CampaignSubmission } from '../models/campaign-submission.model';
 import { Campaign } from '../models/campaign.model';
 import { CreateCampaignPayload } from '../models/create-campaign.model';
-import { PaginatedResponse } from '../models/paginated-response.model';
 
 @Injectable({ providedIn: 'root' })
 export class CampaignService {

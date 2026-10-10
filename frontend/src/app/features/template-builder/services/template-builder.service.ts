@@ -8,6 +8,7 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class TemplateBuilderService {
+  readonly name = signal('');
   readonly blocks = signal<TemplateBlock[]>([]);
   readonly selectedBlockId = signal<string | null>(null);
 
@@ -20,6 +21,18 @@ export class TemplateBuilderService {
     const block = createBlock(type);
     this.blocks.update((blocks) => [...blocks, block]);
     this.selectedBlockId.set(block.id);
+  }
+
+  loadTemplate(name: string, blocks: TemplateBlock[]): void {
+    this.name.set(name);
+    this.blocks.set([...blocks]);
+    this.selectedBlockId.set(null);
+  }
+
+  reset(): void {
+    this.name.set('');
+    this.blocks.set([]);
+    this.selectedBlockId.set(null);
   }
 
   removeBlock(id: string): void {

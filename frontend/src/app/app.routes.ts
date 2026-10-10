@@ -26,6 +26,20 @@ export const routes: Routes = [
   {
     path: 'templates',
     loadComponent: () =>
+      import('./features/template-builder/pages/template-list/template-list.component').then(
+        (m) => m.TemplateListComponent,
+      ),
+  },
+  {
+    path: 'templates/new',
+    loadComponent: () =>
+      import('./features/template-builder/pages/template-builder/template-builder.component').then(
+        (m) => m.TemplateBuilderComponent,
+      ),
+  },
+  {
+    path: 'templates/:id/edit',
+    loadComponent: () =>
       import('./features/template-builder/pages/template-builder/template-builder.component').then(
         (m) => m.TemplateBuilderComponent,
       ),

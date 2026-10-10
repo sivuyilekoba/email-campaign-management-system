@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { CampaignDetail } from '../models/campaign-detail.model';
 import { CampaignSubmission } from '../models/campaign-submission.model';
-import { PaginatedResponse } from '../models/paginated-response.model';
+import { PaginatedResponse } from '../../../shared/models/paginated-response.model';
 import { Campaign } from '../models/campaign.model';
 import { CampaignService } from './campaign.service';
 

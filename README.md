@@ -24,7 +24,7 @@ and view campaign and per-recipient statuses.
 - Simulated email sending (no external mail provider is required).
 - Campaign status flows `queued → processing → done`; each email job is `pending → sent | failed`.
 - Angular UI: campaign creation form with a live email preview, campaign list, and campaign details.
-- Email template builder (Header/Text/Image/Button blocks) with sidebar editing and a live preview.
+- Email template builder (Header/Text/Image/Button blocks) with sidebar editing, a live preview, and saved reusable templates.
 - PHPUnit (backend) and Karma/Jasmine (frontend) test suites; Storybook for shared components.
 
 ---
@@ -200,15 +200,62 @@ Returns a single campaign with its email jobs and per-recipient statuses.
 }
 ```
 
+### `POST /api/templates`
+
+Creates a reusable email template from a list of content blocks.
+
+Request:
+
+```json
+{
+    "name": "Welcome template",
+    "blocks": [
+        { "id": "b1", "type": "header", "text": "Welcome!" },
+        { "id": "b2", "type": "button", "label": "Get started", "url": "https://example.com" }
+    ]
+}
+```
+
+Response (`201 Created`):
+
+```json
+{
+    "id": 1,
+    "name": "Welcome template",
+    "blocks": [
+        { "id": "b1", "type": "header", "text": "Welcome!" },
+        { "id": "b2", "type": "button", "label": "Get started", "url": "https://example.com" }
+    ],
+    "created_at": "...",
+    "updated_at": "..."
+}
+```
+
+### `GET /api/templates`
+
+Returns a paginated list of templates (15 per page), ordered newest first.
+
+### `GET /api/templates/{id}`
+
+Returns a single template with its blocks.
+
+### `PUT /api/templates/{id}`
+
+Updates a template's name and blocks.
+
+### `DELETE /api/templates/{id}`
+
+Deletes a template (returns `204 No Content`).
+
 ---
 
 ## Running the tests
 
 ```bash
-# Backend — PHPUnit (12 tests)
+# Backend — PHPUnit (19 tests)
 php artisan test
 
-# Frontend — Karma/Jasmine (33 tests, headless)
+# Frontend — Karma/Jasmine (38 tests, headless)
 cd frontend
 npm test -- --watch=false --browsers=ChromeHeadless
 ```
@@ -257,15 +304,14 @@ npm run build-storybook    # static build → frontend/storybook-static
   form, and see changes reflected in a live preview in real time. The block components form a
   small design system under `frontend/src/app/shared/components/content-blocks/` — reusable,
   documented with Storybook, and decoupled from the builder's application logic (they take data as
-  inputs and have no dependency on services, HTTP, or routing). Template composition is front-end
-  only for now; saving/reusing templates is not yet implemented (see below).
+  inputs and have no dependency on services, HTTP, or routing). Templates are persisted server-side
+  as a JSON `blocks` column and can be saved, listed, edited and deleted at `/templates`. Templates
+  are a standalone feature and are not wired into campaign creation.
 
 ## Not implemented / incomplete
 
 - **No real email delivery** — sending is simulated only, as specified.
-- **No authentication on the campaign API** — not required by the brief.
-- **Template persistence** — templates can be composed and previewed in the builder, but they
-  cannot yet be saved, listed, or reused. There are no backend endpoints for storing templates.
+- **nnot yet be saved, listed, or reused. There are no backend endpoints for storing templates.
 - **Storybook auto-generated docs pages** — disabled (compodoc/Node 22 issue noted above).
 
 ## Secrets
